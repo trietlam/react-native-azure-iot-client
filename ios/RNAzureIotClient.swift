@@ -25,8 +25,8 @@ class RNAzureIotClient: RCTEventEmitter {
         sendEvent(withName:"TEST_EVENT",body:"{name: eventName}")
     }
     
-    @objc func connect(_ hostName: String, deviceId: String) -> Void {
-        simpleSSLSetting(hostName:hostName, deviceId:deviceId)
+    @objc func connect(_ hostName: String, deviceId: String, sas: String) -> Void {
+        simpleSSLSetting(hostName:hostName, deviceId:deviceId, sas:sas)
         topic = "devices/" + deviceId + "/messages/events/"
         switch mqtt!.connState {
         case CocoaMQTTConnState.connected:
@@ -55,10 +55,10 @@ class RNAzureIotClient: RCTEventEmitter {
         mqtt!.publish("devices/reactnativeclient01/messages/events/", withString: message, qos: .qos1)
     }
     
-    func simpleSSLSetting(hostName: String, deviceId: String) {
+    func simpleSSLSetting(hostName: String, deviceId: String, sas: String) {
         mqtt = CocoaMQTT(clientID: deviceId, host: hostName, port: 8883)
         mqtt!.username = hostName + "/" + deviceId
-        mqtt!.password = "SharedAccessSignature sr=dev-OBD2-iot.azure-devices.net%2Fdevices%2Freactnativeclient01&sig=YehPGrse%2BVGzcQRoe0auZ9BlHnQkhvu39Nnhe3GTSpo%3D&se=1544647696"
+        mqtt!.password = sas
         mqtt!.keepAlive = 60
         mqtt!.delegate = self
         mqtt!.enableSSL = true

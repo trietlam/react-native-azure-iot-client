@@ -13,7 +13,7 @@
 @interface RCT_EXTERN_MODULE(RNAzureIotClient, RCTEventEmitter)
 RCT_EXTERN_METHOD(supportedEvents)
 RCT_EXTERN_METHOD(testEvent:(NSString *)name)
-RCT_EXTERN_METHOD(connect:(NSString *)hostName deviceId:(NSString *)deviceId)
+RCT_EXTERN_METHOD(connect:(NSString *)hostName deviceId:(NSString *)deviceId sas:(NSString*)sas)
 RCT_EXTERN_METHOD(sendMessage:(NSString *)message)
 RCT_EXTERN_METHOD(addEvent:(NSString *)name location:(NSString *)location date:(nonnull NSNumber *)date)
 
